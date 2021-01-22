@@ -1,12 +1,5 @@
 buildscript{
-//    ext{
-//        springBootVersion = '1.4.2.Release'
-//    }
     repositories{
-        mavenCentral()
-        mavenLocal()
-        maven { url "https://repo.spring.io/libs-milestone" }
-        maven { url "https://repo.spring.io/libs-snapshot" }
         maven {
             url "https://nexus.mm.meshkorea.net/repository/maven-public/"
 
@@ -21,16 +14,21 @@ buildscript{
     }
 }
 
-
-
 apply plugin : 'java'
 apply plugin: 'maven'
 apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 
-group 'org.example'
+//메인클래스를 명시적으로 설정하는 경우
+//springBoot {
+//    mainClassName = 'com.vroong.newbee.application.Mainapplication'
+//}
+
 version '1.0-SNAPSHOT'
+
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
 
 repositories {
     mavenCentral()
@@ -54,5 +52,4 @@ dependencies {
     compile('org.springframework.session:spring-session-jdbc')
     compile('org.springframework.boot:spring-boot-starter-web') //버전을 명시하지 않아야 맨위에 작성한 springBootVersion 변수에서 정한 버전을 따라간다.
     testCompile('org.springframework.boot:spring-boot-starter-test')
-    testCompile group: 'junit', name: 'junit', version: '4.12'
 }
