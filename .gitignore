@@ -6,3 +6,4 @@ out/
 *.class
 build/
 gradle.properties
+data/
