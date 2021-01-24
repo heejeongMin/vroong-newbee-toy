@@ -1,4 +1,4 @@
-package com.vroong.newbee.application.domain.member;
+package com.vroong.newbee.application.domain.member.manytoone;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-@Entity
+@Entity(name ="MEMBER")
 public class Member {
 
   @Id
@@ -34,12 +34,14 @@ public class Member {
   //양방향관계인경우, 양쪽에 모두 저장해 주는 메서드를 한곳에 구현.
   public void setTeam(Team team) {
 
-    if(this.team != null) {
-      this.getTeam().getMembers().remove(this); //기존 팀에 들어있던 member를 삭제해주어야함.
+    if(this.team != null) {//기존에 지정된 팀이 있다면 기존 팀에서 해당 회원을 제외해 준다.
+      this.getTeam().getMembers().remove(this);
     }
 
-    this.team = team;
-    team.getMembers().add(this);
+    this.team = team; //새팀을 정해준다.
+    if(!team.getMembers().contains(this)) {// 그리고 그 정해진 새 팀에도 애 회원을 넣어주는데 없으면 넣어준다.
+      team.getMembers().add(this);
+    }
   }
 
 }

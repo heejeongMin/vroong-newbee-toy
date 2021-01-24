@@ -1,6 +1,6 @@
 package com.vroong.newbee.application.web.dto;
 
-import com.vroong.newbee.application.domain.member.Team;
+import com.vroong.newbee.application.domain.member.manytoone.Team;
 import lombok.Getter;
 
 @Getter

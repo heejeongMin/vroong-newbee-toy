@@ -1,6 +1,7 @@
 package com.vroong.newbee.application.web;
 
 import com.vroong.newbee.application.service.MemberService;
+import com.vroong.newbee.application.service.OrderService;
 import com.vroong.newbee.application.service.TeamService;
 import com.vroong.newbee.application.web.dto.MemberDTO;
 import java.util.List;
@@ -17,6 +18,7 @@ public class TestController {
 
   private final MemberService memberService;
   private final TeamService teamService;
+  private final OrderService orderService;
 
   @GetMapping("/")
   public String index(){
@@ -24,14 +26,14 @@ public class TestController {
   }
 
 
-  @GetMapping("/test")
-  public void test() throws Exception{
-    memberService.testSave();
+  @GetMapping("/many-to-one")
+  public void manyToOne() throws Exception{
+    memberService.manyToOne();
   }
 
   //컨트롤러에서는 엔티티를 직접 반환하는 것이 아니라 dto를 통해서 반환해야한다고 함.
-  @RequestMapping(value="/test/{teamId}", method = RequestMethod.GET)
-  public List<MemberDTO> getMemberList(@PathVariable String teamId){
+  @RequestMapping(value="/many-to-one/{teamId}", method = RequestMethod.GET)
+  public List<MemberDTO> getMemberList(@PathVariable Long teamId){
 
     List<MemberDTO> members = memberService.getMemberList(teamId);
     System.out.println(members);
@@ -39,4 +41,27 @@ public class TestController {
     return members;
 
   }
+
+
+  @GetMapping("/one-to-many")
+  public void oneToMany(){
+    teamService.oneToMany();
+
+  }
+
+  @GetMapping("/many-to-many")
+  public void manyToMany(){
+    memberService.saveMemberAndProduct();
+    memberService.findMember3();
+  }
+  @GetMapping("/many-to-many/find")
+  public void manyToManyFind(){
+    memberService.findMember3();
+  }
+
+  @GetMapping("/many-to-many/newId")
+  public void manyToManyWithNewId(){
+    orderService.saveOrder();
+  }
+
 }

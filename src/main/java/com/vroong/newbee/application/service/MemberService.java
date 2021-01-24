@@ -1,11 +1,19 @@
 package com.vroong.newbee.application.service;
 
-import com.vroong.newbee.application.domain.member.Member;
-import com.vroong.newbee.application.domain.member.MemberRepository;
-import com.vroong.newbee.application.domain.member.Team;
-import com.vroong.newbee.application.domain.member.TeamRepository;
+import com.vroong.newbee.application.domain.member.manytomany.Member3;
+import com.vroong.newbee.application.domain.member.manytomany.Member3Repository;
+import com.vroong.newbee.application.domain.member.manytomany.Product;
+import com.vroong.newbee.application.domain.member.manytomany.ProductRepository;
+import com.vroong.newbee.application.domain.member.manytomany.customMidTable.Member4;
+import com.vroong.newbee.application.domain.member.manytomany.customMidTable.Member4Repository;
+import com.vroong.newbee.application.domain.member.manytomany.customMidTable.MemberProduct;
+import com.vroong.newbee.application.domain.member.manytomany.customMidTable.Product2;
+import com.vroong.newbee.application.domain.member.manytomany.customMidTable.Product2Repository;
+import com.vroong.newbee.application.domain.member.manytoone.Member;
+import com.vroong.newbee.application.domain.member.manytoone.MemberRepository;
+import com.vroong.newbee.application.domain.member.manytoone.Team;
+import com.vroong.newbee.application.domain.member.manytoone.TeamRepository;
 import com.vroong.newbee.application.web.dto.MemberDTO;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.transaction.Transactional;
@@ -18,12 +26,16 @@ public class MemberService {
 
   private final MemberRepository memberRepository;
   private final TeamRepository teamRepository;
+  private final ProductRepository productRepository;
+  private final Member3Repository member3Repository;
+  private final Member4Repository member4Repository;
+  private final Product2Repository product2Repository;
 
 
 
-  //단방향 연습
+  //manytoone
   @Transactional //한 트랜젝션 안에 하나의 영속성 컨텍스트만 존재.
-  public void testSave() throws Exception{
+  public void manyToOne() throws Exception{
 
     try {
 
@@ -75,9 +87,49 @@ public class MemberService {
     }
   }
 
-  public List<MemberDTO> getMemberList (String teamId) {
+  public List<MemberDTO> getMemberList (Long teamId) {
     return teamRepository.findById(teamId).get().getMembers()
             .stream().map(MemberDTO::new).collect(Collectors.toList());
+  }
+
+  public void saveMemberAndProduct(){
+
+    Product product = new Product().builder().name("상품").build();
+    Member3 member = new Member3().builder().username("이름").products(product).build();
+
+    productRepository.save(product);
+    member3Repository.save(member);
+
+
+  }
+
+  public void findMember3(){
+
+    Member3 member = member3Repository.findById(1l).get();
+    member.getProducts().stream().forEach(product -> System.out.println(product.getId() + " " + product.getName()));
+
+  }
+
+  public void identifyingRelationship(){
+
+    //회원저장
+    Member4 member = new Member4().builder().username("민희정").build();
+    member4Repository.save(member);
+
+    //상품저장
+    Product2 product = new Product2().builder().name("등쿠션").build();
+    product2Repository.save(product);
+
+    //회원상품저장
+    MemberProduct memberProduct = new MemberProduct().builder()
+                                                      .member(member)
+                                                      .product(product)
+                                                      .build();
+
+
+
+
+
   }
 
 }

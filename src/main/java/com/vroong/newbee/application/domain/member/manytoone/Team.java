@@ -1,7 +1,5 @@
-package com.vroong.newbee.application.domain.member;
+package com.vroong.newbee.application.domain.member.manytoone;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators.IntSequenceGenerator;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Column;
@@ -19,7 +17,7 @@ import lombok.Setter;
 
 @Getter
 @NoArgsConstructor
-@Entity
+@Entity(name ="TEAM")
 public class Team {
 
   @Id
@@ -37,5 +35,19 @@ public class Team {
   public Team(String name) {
     this.name = name;
   }
+
+
+  //멤버쪽과 팀쪽 둘다 추가하는 코드가 있다. 편의를 위해 추가할수 있으나, 무한루프에 빠지지 않게 조심해야한다. 나는 한쪽에만 두기로 함.
+//  public void addMember(Member member){
+//    if(!members.contains(member)) { //기존에 있는 멤버가 아니면 넣어주고,
+//      members.add(member);
+//    }
+//
+//    if(member.getTeam() != this) { //지금 이 새팀이 아니면, 그 아닌 team에서도 제거하는 코드가 필요.
+//      member.getTeam().getMembers().remove(member);
+//      member.setTeam(this);
+//
+//    }
+//  }
 
 }
