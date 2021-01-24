@@ -4,8 +4,10 @@ import com.vroong.newbee.application.domain.member.manytoone.Member;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -28,14 +30,14 @@ public class Orders  extends BaseEntity {
   @Column(name = "ORDER_ID")
   private Long id;
 
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "MEMBER_ID")
   private Members member;
 
-  @OneToMany(mappedBy = "orders")
+  @OneToMany(mappedBy = "orders", cascade = CascadeType.ALL)
   private List<OrderItems> orderItems = new ArrayList<>();
 
-  @OneToOne
+  @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   @JoinColumn(name = "DELIVERY_ID")
   private Delivery delivery;
 

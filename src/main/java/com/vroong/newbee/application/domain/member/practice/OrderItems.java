@@ -2,6 +2,7 @@ package com.vroong.newbee.application.domain.member.practice;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -21,11 +22,11 @@ public class OrderItems extends BaseEntity {
   @Column(name = "ORDER_ITEMS_ID")
   private Long id;
 
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "ITEMS_ID")
   private Items items;
 
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "ORDERS_ID")
   private Orders orders;
 
