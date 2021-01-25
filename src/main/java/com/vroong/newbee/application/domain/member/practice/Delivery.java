@@ -1,6 +1,7 @@
 package com.vroong.newbee.application.domain.member.practice;
 
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -24,9 +25,14 @@ public class Delivery extends BaseEntity {
   @OneToOne(mappedBy = "delivery")
   private Orders orders;
 
-  private String city;
 
-  private String zipcode;
+  //값타입으로 전환
+//  private String city;
+//  private String street;
+//  private String zipcode;
+
+  @Embedded
+  private Address address;
 
   @Enumerated(value = EnumType.STRING)
   private DeliveryStatus status;

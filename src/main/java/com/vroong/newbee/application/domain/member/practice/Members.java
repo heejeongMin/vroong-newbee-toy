@@ -2,6 +2,7 @@ package com.vroong.newbee.application.domain.member.practice;
 
 import java.util.List;
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -22,11 +23,13 @@ public class Members extends BaseEntity {
 
   private String name;
 
-  private String city;
+  //값타입을 전환
+//  private String city;
+//  private String street;
+//  private String zipcode;
 
-  private String street;
-
-  private String zipcode;
+  @Embedded
+  private Address address;
 
   @OneToMany(mappedBy = "member")
   private List<Orders> orders;
