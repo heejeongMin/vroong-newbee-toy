@@ -1,1 +1,6 @@
 rootProject.name = 'vroong-newbee-toy'
+include 'vroong-newbee-apiapplication'
+include 'vroong-newbee-application'
+include 'vroong-newbee-domain'
+include 'vroong-newbee-infrastructure'
+
