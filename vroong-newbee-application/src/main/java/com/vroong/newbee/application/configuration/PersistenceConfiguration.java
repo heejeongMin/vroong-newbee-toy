@@ -1,4 +1,4 @@
-package com.vroong.newbee.configuration;
+package com.vroong.newbee.application.configuration;
 
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Configuration;

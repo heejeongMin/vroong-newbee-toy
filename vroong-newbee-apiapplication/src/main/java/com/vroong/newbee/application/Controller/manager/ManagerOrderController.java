@@ -1,10 +1,9 @@
 package com.vroong.newbee.application.Controller.manager;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.vroong.newbee.application.service.OrderService;
-import com.vroong.newbee.application.service.request.OrderReq;
-import com.vroong.newbee.application.service.response.OrderRes;
+import com.vroong.newbee.application.model.request.OrderReq;
+import com.vroong.newbee.application.model.response.OrderRes;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -1,6 +1,9 @@
-package com.vroong.newbee.application.service.model.order;
+package com.vroong.newbee.application.model.order;
 
+import com.vroong.newbee.application.model.BaseDto;
+import com.vroong.newbee.application.model.partner.CustomerDto;
 import com.vroong.newbee.domain.order.Order;
+import com.vroong.newbee.domain.order.OrderStatus;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,7 +24,7 @@ public class OrderDto extends BaseDto<OrderDto, Order> {
     this.orderNumber = orderNumber;
     this.orderStatus = orderStatus;
     this.customerDto = customerDto;
-  }  
+  }
 
 
   @Override
@@ -29,12 +32,17 @@ public class OrderDto extends BaseDto<OrderDto, Order> {
     return new Order().builder()
                       .id(this.id)
                       .orderNumber(this.orderNumber)
+                      .orderStatus(OrderStatus.valueOf(this.orderStatus.name()))
                       .customer(this.customerDto.toEntity())
                       .build();
   }
 
   @Override
   public OrderDto toDto(@NonNull Order order) {
+    this.id = order.getId();
+    this.orderStatus = OrderStatusDto.valueOf(order.getOrderStatus().name());
+    this.orderNumber = order.getOrderNumber();
+    this.customerDto = new CustomerDto().toDto(order.getCustomer());
     return null;
   }
 }

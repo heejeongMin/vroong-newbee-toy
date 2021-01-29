@@ -1,6 +1,6 @@
-package com.vroong.newbee.application.service.response;
+package com.vroong.newbee.application.model.response;
 
-import com.vroong.newbee.application.service.model.order.OrderDto;
+import com.vroong.newbee.application.model.order.OrderDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

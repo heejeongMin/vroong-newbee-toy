@@ -1,4 +1,4 @@
-package com.vroong.newbee.application.service.model.order;
+package com.vroong.newbee.application.model.order;
 
 
 public enum  OrderStatusDto {

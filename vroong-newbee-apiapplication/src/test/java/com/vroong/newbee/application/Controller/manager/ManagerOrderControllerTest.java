@@ -3,11 +3,11 @@ package com.vroong.newbee.application.Controller.manager;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.vroong.newbee.application.service.model.order.CustomerDto;
-import com.vroong.newbee.application.service.model.order.OrderStatusDto;
-import com.vroong.newbee.application.service.request.OrderReq;
+import com.vroong.newbee.application.model.partner.CustomerDto;
+import com.vroong.newbee.application.model.order.OrderDto;
+import com.vroong.newbee.application.model.order.OrderStatusDto;
+import com.vroong.newbee.application.model.request.OrderReq;
 import com.vroong.newbee.domain.order.Order;
 import com.vroong.newbee.domain.order.OrderRepository;
 import com.vroong.newbee.domain.partner.Customer;
@@ -48,16 +48,16 @@ public class ManagerOrderControllerTest {
 
   @Before
   public void setupCustomerData(){
-    System.out.println(123);
     Customer customer = customerRepository.saveAndFlush(new Customer().builder().customerName("판쵸상점").build());
-    System.out.println(customer.getId());
   }
 
   @Test
-  public void test2() throws Exception {
-    System.out.println("test");
+  public void createOrder() throws Exception {
     //given
-    OrderReq orderReq = new OrderReq(OrderStatusDto.ASSIGNED, new CustomerDto().builder().id(1l).build());
+    OrderReq orderReq = new OrderReq(new OrderDto().builder()
+                                      .orderStatus(OrderStatusDto.SUBMITTED)
+                                      .customerDto(new CustomerDto().builder().id(1l).build())
+                                      .build());
 
     String url = "http://localhost:" + port + "/manager/order/v1/create";
 
@@ -69,9 +69,9 @@ public class ManagerOrderControllerTest {
     //then
     List<Order> all = orderRepository.findAll();
 
-    assertThat(all.get(0).getOrderStatus().name()).isEqualTo(orderReq.getOrderStatus().name());
+    assertThat(all.get(0).getOrderStatus().name()).isEqualTo((orderReq.getOrderDto().getOrderStatus().name()));
     assertThat(all.get(0).getOrderNumber()).isNotNull(); //transactional 이 없었으면 dirtychecking이 되지 않아서 여기서 에러가 난다. response로 또 보낼때는 이 값이 있는데 그 사이 flush가 되는 것 같다.
-    assertThat(all.get(0).getCustomer().getId()).isEqualTo(orderReq.getCustomerDto().getId());
+    assertThat(all.get(0).getCustomer().getId()).isEqualTo((orderReq.getOrderDto().getCustomerDto().getId()));
   }
 
 
