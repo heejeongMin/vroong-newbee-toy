@@ -43,6 +43,6 @@ public class OrderDto extends BaseDto<OrderDto, Order> {
     this.orderStatus = OrderStatusDto.valueOf(order.getOrderStatus().name());
     this.orderNumber = order.getOrderNumber();
     this.customerDto = new CustomerDto().toDto(order.getCustomer());
-    return null;
+    return this;
   }
 }

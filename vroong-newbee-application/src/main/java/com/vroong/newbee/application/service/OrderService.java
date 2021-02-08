@@ -7,6 +7,7 @@ public interface OrderService<T, S> {
 
 
   //오더 배정
+  public S assignOrder(T orderReq);
 
   //오더 배정 취소
 
