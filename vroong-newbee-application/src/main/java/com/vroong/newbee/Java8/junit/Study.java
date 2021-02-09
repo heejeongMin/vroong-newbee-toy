@@ -5,6 +5,8 @@ public class Study {
 
   private int limit;
 
+  private boolean isWithinLimit;
+
   private String name;
 
   public Study() {
@@ -19,6 +21,11 @@ public class Study {
     this.name = name;
   }
 
+  public Study(int limit, boolean isWithinLimit) {
+    this.limit = limit;
+    this.isWithinLimit = isWithinLimit;
+  }
+
   public StudyStatus getStatus() {
     return status;
   }
@@ -29,6 +36,11 @@ public class Study {
 
   public String getName() {
     return name;
+  }
+
+  public boolean isWithinLimit(){
+    this.isWithinLimit = limit < 10;
+    return this.isWithinLimit;
   }
 
   @Override

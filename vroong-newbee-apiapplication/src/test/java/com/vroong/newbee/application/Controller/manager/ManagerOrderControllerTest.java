@@ -14,6 +14,8 @@ import com.vroong.newbee.domain.partner.Customer;
 import com.vroong.newbee.domain.partner.CustomerRepository;
 import java.util.List;
 import org.junit.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -25,7 +27,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.context.WebApplicationContext;
 
-@RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
 public class ManagerOrderControllerTest {
@@ -46,11 +47,12 @@ public class ManagerOrderControllerTest {
   private MockMvc mvc;
 
 
-  @Before
-  public void setupCustomerData(){
-    Customer customer = customerRepository.saveAndFlush(new Customer().builder().customerName("판쵸상점").build());
+  @BeforeEach
+  public void setupCustomerData() throws Exception {
+      customerRepository.saveAndFlush(new Customer().builder().customerName("판쵸상점").build());
   }
 
+  @DisplayName("오더 생성하기")
   @Test
   public void createOrder() throws Exception {
     //given

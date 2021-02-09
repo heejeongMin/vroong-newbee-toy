@@ -3,5 +3,4 @@ include 'vroong-newbee-apiapplication'
 include 'vroong-newbee-application'
 include 'vroong-newbee-domain'
 include 'vroong-newbee-infrastructure'
-include 'vroong-newbee-manager-api'
 

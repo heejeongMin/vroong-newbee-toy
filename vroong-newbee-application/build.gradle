@@ -27,6 +27,4 @@ dependencies {
     compile('org.springframework.boot:spring-boot-starter-web') //버전을 명시하지 않아야 맨위에 작성한 springBootVersion 변수에서 정한 버전을 따라간다.
     testCompile('org.springframework.boot:spring-boot-starter-test')
 
-//    testImplementation('org.junit.jupiter:junit-jupiter-api:5.3.1')
-//    testRuntimeOnly('org.junit.jupiter:junit-jupiter-engine:5.3.1')
 }
