@@ -1,5 +1,13 @@
-buildscript{
-    repositories{
+buildscript{ //이 프로젝트의 플러그인 의존성 관리를 위한 설정
+    ext{ //ext라는 키워드는 build.gradle에서 사용하는 전역변수를 설정하겠다는 의미
+        springBootVersion = '2.2.0.RELEASE'
+    }
+
+
+    repositories {// 각종 의존성들을 어떤 원격 저장소에서 받을지 정함.
+//        mavenCentral()
+//        jcenter()//기존에는 mavenCentral을 많이 사용하였지만, 라이브러리 업로드 난이도로 jcenter도 많이 사용함
+
         maven {
             url "https://nexus.mm.meshkorea.net/repository/maven-public/"
 
@@ -8,18 +16,13 @@ buildscript{
                 password meshRepoPassword
             }
         }
+
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
     }
 }
 
-//gradle 6.5.1
-//plugins {
-//    id 'java-library'
-//    id 'org.springframework.boot' version "${springBootVersion}"
-//    id 'io.spring.dependency-management' version "${springBootVersion}"
-//}
 
 apply plugin : 'java'
 apply plugin: 'maven'
@@ -27,53 +30,40 @@ apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 
-configure(allprojects) { project ->
-    group = 'com.vroong.newbee'
-
-    sourceCompatibility = JavaVersion.VERSION_1_8
-    targetCompatibility = JavaVersion.VERSION_1_8
-
-    [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
-
-    repositories {
-        mavenCentral()
-        mavenLocal()
-        maven { url "https://repo.spring.io/libs-milestone" }
-        maven { url "https://repo.spring.io/libs-snapshot" }
-        maven {
-            url "https://nexus.mm.meshkorea.net/repository/maven-public/"
-
-            credentials {
-                username meshRepoUser
-                password meshRepoPassword
-            }
-        }
-    }
-
-    buildscript {
-        repositories {
-            mavenCentral()
-            jcenter()
-            maven { url 'https://repo.spring.io/plugins-release' }
-        }
-    }
-}
-
+group 'vroong.newbee.toy'
 version '1.0-SNAPSHOT'
 
-
-//project(':vroong-newbee-apiapplication'){
-//    dependencies {
-//        compile project(':vroong-newbee-application')
-//    }
-//}
+repositories  {
+    mavenCentral()
+}
 
 dependencies {
     compile('org.springframework.boot:spring-boot-starter-data-jpa') //스프링 부트용 Spring Data Jpa 추상화 라이브러리
-    compile('org.projectlombok:lombok')
     compile('com.h2database:h2') //인메모리 관계형 데이터베이스, 메모리에서 실행되기 때문에 애플리케이션을 실행할때마다 초기화
     compile('org.springframework.session:spring-session-jdbc')
     compile('org.springframework.boot:spring-boot-starter-web') //버전을 명시하지 않아야 맨위에 작성한 springBootVersion 변수에서 정한 버전을 따라간다.
 
+
+    compileOnly('org.projectlombok:lombok')
+    annotationProcessor('org.projectlombok:lombok')
+
+    testCompileOnly('org.projectlombok:lombok')
     testCompile('org.springframework.boot:spring-boot-starter-test')
 }
+
+
+//def getLocalIPv4() {
+//    def ip4s = []
+//    NetworkInterface.getNetworkInterfaces()
+//            .findAll { it.isUp() && !it.isLoopback() && !it.isVirtual() }
+//            .each {
+//                it.getInetAddresses()
+//                        .findAll { !it.isLoopbackAddress() && it instanceof Inet4Address }
+//                        .each { ip4s << it }
+//            }
+//    return ip4s
+//}
+//
+//task printIP()<<{
+//    println getLocalIPv4()
+//}
