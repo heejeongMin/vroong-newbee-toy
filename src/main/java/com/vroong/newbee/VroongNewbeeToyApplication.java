@@ -2,7 +2,9 @@ package com.vroong.newbee;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.scheduling.annotation.EnableAsync;
 
+@EnableAsync
 @SpringBootApplication(scanBasePackages = "com.vroong.newbee")
 public class VroongNewbeeToyApplication {
 
