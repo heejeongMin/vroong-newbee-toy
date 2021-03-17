@@ -24,11 +24,11 @@ buildscript{ //이 프로젝트의 플러그인 의존성 관리를 위한 설�
 }
 
 
-    apply plugin : 'java'
-    apply plugin: 'maven'
-    apply plugin: 'eclipse'
-    apply plugin: 'org.springframework.boot'
-    apply plugin: 'io.spring.dependency-management'
+apply plugin : 'java'
+apply plugin: 'maven'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
 
 group 'vroong.newbee.toy'
 version '1.0-SNAPSHOT'
@@ -41,17 +41,15 @@ dependencies {
     compile('org.springframework.boot:spring-boot-starter-data-jpa') //스프링 부트용 Spring Data Jpa 추상화 라이브러리
     compile('com.h2database:h2') //인메모리 관계형 데이터베이스, 메모리에서 실행되기 때문에 애플리케이션을 실행할때마다 초기화
     compile('org.springframework.session:spring-session-jdbc')
-        compile('org.springframework.boot:spring-boot-starter-web') //버전을 명시하지 않아야 맨위에 작성한 springBootVersion 변수에서 정한 버전을 따라간다.
-        compile("org.springframework:spring-aop")
-        compile("org.springframework.retry:spring-retry")
+    compile('org.springframework.boot:spring-boot-starter-web') //버전을 명시하지 않아야 맨위에 작성한 springBootVersion 변수에서 정한 버전을 따라간다.
 
 
-        compileOnly('org.projectlombok:lombok')
-        annotationProcessor('org.projectlombok:lombok')
+    compileOnly('org.projectlombok:lombok')
+    annotationProcessor('org.projectlombok:lombok')
 
-        testCompileOnly('org.projectlombok:lombok')
-        testCompile('org.springframework.boot:spring-boot-starter-test')
-    }
+    testCompileOnly('org.projectlombok:lombok')
+    testCompile('org.springframework.boot:spring-boot-starter-test')
+}
 
 
 //def getLocalIPv4() {
